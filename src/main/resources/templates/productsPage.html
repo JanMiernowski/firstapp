@@ -23,7 +23,13 @@
     <br/>
 </form>
 
-<table border="1">
+<section style="float: left; width: 200px;">
+    <ul th:each="category : ${categoriesWithId}" style="list-style: none">
+        <li><a th:href="@{/products/category{categoryId}(categoryId=${category.id})}" th:text="${category.getIdWithName()}"></a></li>
+    </ul>
+</section>
+
+<table border="1" style="float: left">
     <tr>
         <th>Id</th>
         <th>Title</th>
@@ -46,6 +52,7 @@
 <!--        <td><a th:href="@{/products/{id}(id=${p.id})}">Edytuj</a></td>-->
     </tr>
 </table>
+    <div style="clear:both;"></div>
 <hr>
 <form method="post" th:action="@{/products}">
     <input name="title" placeholder="title">

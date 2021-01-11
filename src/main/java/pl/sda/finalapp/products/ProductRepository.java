@@ -18,4 +18,19 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             " where upper(p.title) like concat('%',upper(?1), '%')" +
             " and  p.productType = ?2")
     List<Product> findByProductTypeAndTitle(String query, ProductType productType);
+
+    List<Product> findByCategoryId(Integer categoryId);
+
+    @Query("select p " +
+            "from Product p " +
+            "where upper(p.title) like concat('%',upper(?1), '%') " +
+            "and p.categoryId = ?2")
+    List<Product> findByCategoryIdAndQuery(String query, Integer categoryId);
+
+    @Query("select p " +
+            "from Product p " +
+            "where upper(p.title) like concat('%',upper(?1), '%') " +
+            "and p.productType = ?2 " +
+            "and p.categoryId = ?3")
+    List<Product> findByCategoryIdAndQueryAndProductType(String query, ProductType productType, Integer categoryId);
 }
