@@ -18,16 +18,22 @@ public class ProductService {
     @Autowired
     private CategoryService categoryService;
 
-    public List<ProductListDto> findProducts(String query, ProductType productType) {
+    public List<ProductListDto> findProducts(String query, ProductType productType, Integer categoryId) {
         List<Product> products;
-        if ((query == null || query.isBlank()) && productType == null) {
+        if ((query == null || query.isBlank()) && productType == null && categoryId==null) {
             products = productRepository.findAll();
-        } else if (productType != null && (query != null && !query.isBlank())) {
+        } else if (productType != null && (query != null && !query.isBlank()) && categoryId==null) {
             products = productRepository.findByProductTypeAndTitle(query, productType);
-        } else if (productType != null) {
+        } else if (productType != null && categoryId==null) {
             products = productRepository.findByProductType(productType);
-        } else {
+        } else if ( categoryId==null) {
             products = productRepository.findByTitle(query);
+        } else if((query==null || query.isBlank()) && productType==null){
+            products = productRepository.findByCategoryId(categoryId);
+        } else if( query!=null && !query.isBlank() && productType==null){
+            products = productRepository.findByCategoryIdAndQuery(query,categoryId);
+        }  else {
+            products = productRepository.findByCategoryIdAndQueryAndProductType(query,productType,categoryId);
         }
         return products.stream()
                 .map(p -> createProductListDto(p))
