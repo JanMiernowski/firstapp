@@ -11,35 +11,57 @@
 
     <form class="form-signin" method="post" th:action="@{/register}" th:object="${registrationUserDto}">
         <label for="firstName">First name</label>
-        <input class="form-control" th:field="*{firstName}" placeholder="firstName"><br/>
+        <input id="firstName" class="form-control" th:field="*{firstName}" placeholder="firstName"><br/>
         <p th:text="${firstNameError}" th:if="${firstNameError}"></p>
 
+        <label for="lastName">Last name</label>
         <input class="form-control"th:field="*{lastName}" placeholder="lastName"><br/>
+        <p th:text="${lastNameError}" th:if="${lastNameError}"></p>
 
+        <label for="eMail">E-Mail</label>
         <input class="form-control"th:field="*{eMail}" placeholder="eMail"><br/>
+        <p th:text="${eMailError}" th:if="${eMailError}"></p>
 
+        <label for="password">Password</label>
         <input class="form-control"th:field="*{password}" placeholder="password"><br/>
+        <p th:text="${passwordError}" th:if="${passwordError}"></p>
 
+        <label for="city">City</label>
         <input class="form-control"th:field="*{city}" placeholder="city"><br/>
+        <p th:text="${cityError}" th:if="${cityError}"></p>
 
+        <label for="country">Country</label>
         <select class="form-control" th:field="*{country}">
             <option th:value="''">Wybierz</option>
             <option th:each="country : ${countryList}"
                     th:value="${country.symbol}"
                     th:text="${country.plName}"></option>
         </select><br/>
+        <p th:text="${countryError}" th:if="${countryError}"></p>
 
+        <label for="zipCode">Zip Code</label>
         <input class="form-control" th:field="*{zipCode}" placeholder="zipCode"><br/>
+        <p th:text="${zipError}" th:if="${zipError}"></p>
 
+        <label for="street">Street</label>
         <input class="form-control"th:field="*{street}" placeholder="street"><br/>
+        <p th:text="${streetError}" th:if="${streetError}"></p>
 
+        <label for="birthDate">Birth date</label>
         <input class="form-control"th:field="*{birthDate}" placeholder="birthDate"><br/>
+        <p th:text="${birthDateError}" th:if="${birthDateError}"></p>
 
+        <label for="pesel">Pesel</label>
         <input class="form-control"th:field="*{pesel}" placeholder="pesel"><br/>
+        <p th:text="${peselError}" th:if="${peselError}"></p>
 
+        <label for="phone">Phone</label>
         <input class="form-control"th:field="*{phone}" placeholder="phone"><br/>
+        <p th:text="${phoneError}" th:if="${phoneError}"></p>
 
-        <input class="form-control"th:field="*{preferEmails}" placeholder="preferEmails"><br/>
+        <label for="preferEmails">Chcę otrzymywać emaile z wiadomościami</label>
+        <input id="preferEmails" class="form-control" type="checkbox" th:field="*{preferEmails}" placeholder="preferEmails">
+        <br/>
 
         <button>Utwórz konto</button>
     </form>

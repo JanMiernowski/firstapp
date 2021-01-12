@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.finalapp.categories.CategoryDto;
 import pl.sda.finalapp.categories.CategoryService;
+import pl.sda.finalapp.exceprions.WrongIdException;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import java.math.BigDecimal;
@@ -86,7 +87,10 @@ public class ProductController {
 
     @PostMapping("/{id}")
 //todo security check if id != product.id
-    String editProduct(@ModelAttribute ProductDto product, @PathVariable Integer id) {
+    String editProduct(@ModelAttribute ProductDto product, @PathVariable Integer id) throws WrongIdException {
+        if (!product.getId().equals(id)) {
+             throw new WrongIdException(product.getId(), id);
+        }
         productService.update(product);
         return "redirect:/products";
     }
