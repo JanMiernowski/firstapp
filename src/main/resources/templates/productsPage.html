@@ -19,21 +19,18 @@
                 th:selected="${productType eq type}">
         </option>
     </select>
-    <input name="categoryId" th:value="${categoryId}" hidden>
+    <select name="categoryId">
+        <option value="" th:text="Wybierz"></option>
+        <option
+                th:each="category : ${categoriesWithId}"
+                th:value="${category.getId()}"
+                th:text="${category.getIdWithName()}"
+                th:selected="${category eq categoryId}">
+        </option>
+    </select>
     <button>Wyszukaj</button>
     <br/>
 </form>
-
-<section style="float: left; width: 200px;">
-    <ul th:each="category : ${categoriesWithId}" style="list-style: none">
-        <li>
-            <a th:href="@{/products/category{categoryId}(categoryId=${category.id})}"
-               th:text="${category.getIdWithName()}"></a></li>
-        <li th:if="${category.id==categoriesWithId.size()}">
-            <a href="/products/category0">0. Wszystkie</a>
-        </li>
-    </ul>
-</section>
 
 <table border="1" style="float: left">
     <tr>
